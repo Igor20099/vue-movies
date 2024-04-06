@@ -4,13 +4,17 @@ import axios from "axios";
 
 export const useMoviesStore = defineStore("moviesStore", () => {
   const movies = ref([]);
+  const totalPages = ref(0);
 
-  const fetchMovies = async () => {
+  const isLoader = ref(false);
+
+  const fetchMovies = async (pageNumber) => {
+    isLoader.value = true;
     const res = await axios.get(
       "https://kinopoiskapiunofficial.tech/api/v2.2/films",
       {
         params: {
-          page: 3,
+          page: pageNumber,
         },
         headers: {
           "X-API-KEY": import.meta.env.VITE_API_KEY,
@@ -21,11 +25,14 @@ export const useMoviesStore = defineStore("moviesStore", () => {
     movies.value = await res.data.items.map((movie) => {
       return { ...movie, isFavorite: false };
     });
+    totalPages.value = await res.data.totalPages;
+    isLoader.value = false;
   };
 
   return {
     movies,
+    totalPages,
+    isLoader,
     fetchMovies,
-    setFavorite,
   };
 });

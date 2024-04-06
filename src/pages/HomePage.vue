@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <div class="movies">
-      <ul class="movies-list">
+      <div v-if="moviesStore.isLoader" class="loader">
+        <span>Идет загрузка...</span>
+      </div>
+      <ul class="movies-list" v-else>
         <li
-          @click="console.log(movie)"
+          @click="console.log(moviesStore.totalPages)"
           class="movie"
           v-for="movie in moviesStore.movies"
           :key="movie.kinopoiskId"
@@ -30,23 +33,66 @@
         </li>
       </ul>
     </div>
+    <div class="pages">
+      <div
+        v-for="page in moviesStore.totalPages"
+        @click="changePage(page)"
+        :key="page"
+        class="page"
+        :class="{
+          'current-page': page === pageNumber,
+        }"
+      >
+        {{ page }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useMoviesStore } from "../stores/moviesStore";
 
 const moviesStore = useMoviesStore();
+const pageNumber = ref(1);
 
 onMounted(() => {
-  moviesStore.fetchMovies();
+  moviesStore.fetchMovies(pageNumber.value);
 });
+
+const changePage = (page) => {
+  if (pageNumber.value === page) return;
+  pageNumber.value = page;
+  moviesStore.fetchMovies(pageNumber.value);
+  window.scrollTo(0, 0);
+};
 </script>
 
 <style>
 .movies {
   margin-top: 160px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
+.pages {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.page {
+  margin-right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #808080;
+}
+
+.current-page {
+  color: black;
 }
 
 .movies-list {
@@ -79,7 +125,6 @@ onMounted(() => {
     backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-  z-index: 2;
   background-color: white;
 }
 
