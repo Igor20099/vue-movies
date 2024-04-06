@@ -6,7 +6,7 @@
       </div>
       <ul class="movies-list" v-else>
         <li
-          @click="console.log(moviesStore.totalPages)"
+          @click="$router.push(`/movies/${movie.kinopoiskId}`)"
           class="movie"
           v-for="movie in moviesStore.movies"
           :key="movie.kinopoiskId"
@@ -15,7 +15,7 @@
           <span class="date">Год выпуска: {{ movie.year }}</span>
           <img
             v-if="!movie.isFavorite"
-            @click.stop="movie.isFavorite = true"
+            @click.stop="moviesStore.addFavoriteMovie(movie.kinopoiskId)"
             class="favorite"
             src="../assets/favorite-1.png"
           />
@@ -52,11 +52,14 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useMoviesStore } from "../stores/moviesStore";
+import { useFavoriteMoviesStore } from "../stores/favoriteMoviesStore";
 
 const moviesStore = useMoviesStore();
+const favoriteMoviesStore = useFavoriteMoviesStore();
 const pageNumber = ref(1);
 
 onMounted(() => {
+  pageNumber.value = moviesStore.currentPage;
   moviesStore.fetchMovies(pageNumber.value);
 });
 
@@ -64,6 +67,7 @@ const changePage = (page) => {
   if (pageNumber.value === page) return;
   pageNumber.value = page;
   moviesStore.fetchMovies(pageNumber.value);
+  moviesStore.setCurreentPage(page);
   window.scrollTo(0, 0);
 };
 </script>

@@ -23,6 +23,7 @@
   padding: 16px;
   background-color: #f1f1f1;
   align-items: center;
+  z-index: 2;
 }
 
 .links {

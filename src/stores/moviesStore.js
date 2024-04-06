@@ -4,7 +4,9 @@ import axios from "axios";
 
 export const useMoviesStore = defineStore("moviesStore", () => {
   const movies = ref([]);
+  const favoriteMovies = ref([]);
   const totalPages = ref(0);
+  const currentPage = ref(1);
 
   const isLoader = ref(false);
 
@@ -29,10 +31,24 @@ export const useMoviesStore = defineStore("moviesStore", () => {
     isLoader.value = false;
   };
 
+  const addFavoriteMovie = (movieId) => {
+    const movieIndex = movies.value.findIndex((movie) => {
+      return movie.kinopoiskId === movieId;
+    });
+    movies.value[movieIndex].isFavorite = true;
+  };
+
+  const setCurreentPage = (page) => {
+    currentPage.value = page;
+  };
+
   return {
     movies,
     totalPages,
+    currentPage,
     isLoader,
+    addFavoriteMovie,
     fetchMovies,
+    setCurreentPage,
   };
 });
