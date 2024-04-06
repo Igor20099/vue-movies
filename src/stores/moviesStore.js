@@ -18,11 +18,14 @@ export const useMoviesStore = defineStore("moviesStore", () => {
         },
       }
     );
-    movies.value = await res.data.items;
+    movies.value = await res.data.items.map((movie) => {
+      return { ...movie, isFavorite: false };
+    });
   };
 
   return {
     movies,
     fetchMovies,
+    setFavorite,
   };
 });

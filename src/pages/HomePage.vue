@@ -1,21 +1,27 @@
 <template>
   <div class="home">
-    <div class="header">
-      <h1>Vue Movies</h1>
-      <div class="links">
-        <a class="link" href="#">Главная</a> <a class="link" href="">О сайте</a>
-      </div>
-    </div>
     <div class="movies">
       <ul class="movies-list">
         <li
-          @click="console.log(movie.nameRu)"
+          @click="console.log(movie)"
           class="movie"
           v-for="movie in moviesStore.movies"
           :key="movie.kinopoiskId"
         >
           <h3 class="title" v-if="movie.nameRu">{{ movie.nameRu }}</h3>
           <span class="date">Год выпуска: {{ movie.year }}</span>
+          <img
+            v-if="!movie.isFavorite"
+            @click.stop="movie.isFavorite = true"
+            class="favorite"
+            src="../assets/favorite-1.png"
+          />
+          <img
+            v-if="movie.isFavorite"
+            @click.stop="movie.isFavorite = false"
+            class="favorite"
+            src="../assets/favorite-2.png"
+          />
           <img
             class="poster"
             :src="movie.posterUrlPreview"
@@ -39,37 +45,8 @@ onMounted(() => {
 </script>
 
 <style>
-.header {
-  position: fixed;
-  display: flex;
-  background-color: white;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-bottom: 1px solid #ccc;
-  padding: 16px;
-  background-color: #f1f1f1;
-  align-items: center;
-}
 .movies {
   margin-top: 160px;
-}
-.links {
-  width: 20%;
-  margin: 0 auto;
-}
-
-.link {
-  margin-right: 16px;
-  text-decoration: none;
-  color: #808080;
-  text-transform: uppercase;
-}
-.link:hover {
-  color: #4b4b4b;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter;
 }
 
 .movies-list {
@@ -84,6 +61,7 @@ onMounted(() => {
 
 .movie {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -114,5 +92,12 @@ onMounted(() => {
 .date {
   color: #808080;
   margin-bottom: 4px;
+}
+
+.favorite {
+  position: absolute;
+  width: 32px;
+  top: 10px;
+  right: 10px;
 }
 </style>
