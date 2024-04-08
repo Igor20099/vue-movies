@@ -21,7 +21,7 @@
           />
           <img
             v-if="movie.isFavorite"
-            @click.stop="movie.isFavorite = false"
+            @click.stop="moviesStore.removeFavoriteMovie(movie.kinopoiskId)"
             class="favorite"
             src="../assets/favorite-2.png"
           />
@@ -52,15 +52,13 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useMoviesStore } from "../stores/moviesStore";
-import { useFavoriteMoviesStore } from "../stores/favoriteMoviesStore";
 
 const moviesStore = useMoviesStore();
-const favoriteMoviesStore = useFavoriteMoviesStore();
 const pageNumber = ref(1);
 
-onMounted(() => {
+onMounted(async () => {
   pageNumber.value = moviesStore.currentPage;
-  moviesStore.fetchMovies(pageNumber.value);
+  await moviesStore.fetchMovies(pageNumber.value);
 });
 
 const changePage = (page) => {

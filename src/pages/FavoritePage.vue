@@ -13,14 +13,8 @@
           <h3 class="title" v-if="movie.nameRu">{{ movie.nameRu }}</h3>
           <span class="date">Год выпуска: {{ movie.year }}</span>
           <img
-            v-if="!movie.isFavorite"
-            @click.stop="movie.isFavorite = true"
-            class="favorite"
-            src="../assets/favorite-1.png"
-          />
-          <img
             v-if="movie.isFavorite"
-            @click.stop="movie.isFavorite = false"
+            @click.stop="moviesStore.removeFavoriteMovie(movie.kinopoiskId)"
             class="favorite"
             src="../assets/favorite-2.png"
           />
@@ -36,10 +30,8 @@
 </template>
 
 <script setup>
-import { useFavoriteMoviesStore } from "../stores/favoriteMoviesStore";
 import { useMoviesStore } from "../stores/moviesStore";
 const moviesStore = useMoviesStore();
-const favoriteMoviesStore = useFavoriteMoviesStore();
 </script>
 
 <style>

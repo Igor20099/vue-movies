@@ -18,7 +18,7 @@ export const useMovieStore = defineStore("movieStore", () => {
       }
     );
 
-    movie.value = await { ...res.data, isFavorite: false };
+    movie.value = { ...res.data, isFavorite: false };
     isLoader.value = false;
   };
 
