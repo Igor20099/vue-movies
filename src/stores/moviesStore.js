@@ -64,6 +64,7 @@ export const useMoviesStore = defineStore("moviesStore", () => {
 
   return {
     movies,
+    favoriteMovies,
     totalPages,
     currentPage,
     isLoader,

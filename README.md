@@ -1,7 +1,14 @@
-# Vue 3 + Vite
+# Vue movies
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Сайт для просмотра информацию о фильмах. Получение данных о фильмах происходит с сайта **kinopoiskapiunofficial.tech**(нужен **API KEY** для получения данных. Создать файл **.env** и вставить в этот файл в константу **VITE_API_KEY**). При загрузке основной страницы отображает первую страницу фильмов. Также в проекте реализована пагинация. Реализован динамический роутинг. При клике на карточку фильма, открывается страница с подробным описанием фильма. Также можно добавить фильм в избранное. С помощью роутинга реализован переход по навигационному меню главная, избранное, о сайте.
 
-## Recommended IDE Setup
+## Технологии
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+- HTML5
+- CSS3
+- JavaScript
+- Vite
+- Vue
+- Vue router
+- Pinia
+- Axios

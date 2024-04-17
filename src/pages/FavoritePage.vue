@@ -5,7 +5,7 @@
         <li
           @click="$router.push(`/movies/${movie.kinopoiskId}`)"
           class="movie"
-          v-for="movie in moviesStore.movies.filter(
+          v-for="movie in moviesStore.favoriteMovies.filter(
             (movie) => movie.isFavorite
           )"
           :key="movie.kinopoiskId"

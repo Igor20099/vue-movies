@@ -10,18 +10,6 @@
     <span>Год выпуска : {{ movieStore.movie.year }}</span>
     <img :src="movieStore.movie.posterUrl" class="poster" />
     <p class="description">{{ movieStore.movie.description }}</p>
-    <img
-      v-if="!movieStore.movie.isFavorite"
-      @click.stop="movie.isFavorite = true"
-      class="favorite"
-      src="../assets/favorite-1.png"
-    />
-    <img
-      v-if="movieStore.movie.isFavorite"
-      @click.stop="movie.isFavorite = false"
-      class="favorite"
-      src="../assets/favorite-2.png"
-    />
   </div>
 </template>
 
