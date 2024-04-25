@@ -12,6 +12,7 @@ defineProps({
 
 <style scoped>
 .loader {
+  margin-top: 160px;
   display: flex;
   justify-content: center;
 }

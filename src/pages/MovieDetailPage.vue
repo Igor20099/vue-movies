@@ -1,13 +1,15 @@
 <template>
-  <Loader v-if="moviesStore.isloader" />
-  <div class="movie-detail" v-else>
-    <router-link to="/" class="back"
-      ><img class="back-image" src="/back.png" />назад</router-link
-    >
-    <h1>{{ movieStore.movie.nameRu }}</h1>
-    <span>Год выпуска : {{ movieStore.movie.year }}</span>
-    <img :src="movieStore.movie.posterUrl" class="poster" />
-    <p class="description">{{ movieStore.movie.description }}</p>
+  <div class="movie-detail-page">
+    <Loader v-if="moviesStore.isloader" />
+    <div class="movie-detail" v-else>
+      <router-link to="/" class="back"
+        ><img class="back-image" src="/back.png" />назад</router-link
+      >
+      <h1>{{ movieStore.movie.nameRu }}</h1>
+      <span>Год выпуска : {{ movieStore.movie.year }}</span>
+      <img :src="movieStore.movie.posterUrl" class="poster" />
+      <p class="description">{{ movieStore.movie.description }}</p>
+    </div>
   </div>
 </template>
 

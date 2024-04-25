@@ -7,6 +7,7 @@ export const useMovieStore = defineStore("movieStore", () => {
   const isLoader = ref(false);
 
   const fetchMovie = async (id) => {
+    movie.value = {};
     isLoader.value = true;
     const res = await axios.get(
       `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}`,
