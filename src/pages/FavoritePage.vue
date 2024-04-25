@@ -1,37 +1,16 @@
 <template>
   <div class="home">
-    <div class="movies">
-      <ul class="movies-list">
-        <li
-          @click="$router.push(`/movies/${movie.kinopoiskId}`)"
-          class="movie"
-          v-for="movie in moviesStore.favoriteMovies.filter(
-            (movie) => movie.isFavorite
-          )"
-          :key="movie.kinopoiskId"
-        >
-          <h3 class="title" v-if="movie.nameRu">{{ movie.nameRu }}</h3>
-          <span class="date">Год выпуска: {{ movie.year }}</span>
-          <img
-            v-if="movie.isFavorite"
-            @click.stop="moviesStore.removeFavoriteMovie(movie.kinopoiskId)"
-            class="favorite"
-            src="../assets/favorite-2.png"
-          />
-          <img
-            class="poster"
-            :src="movie.posterUrlPreview"
-            :alt="movie.nameRu"
-          />
-        </li>
-      </ul>
-    </div>
+    <MoviesList
+      :movies="moviesStore.favoriteMovies.filter((movie) => movie.isFavorite)"
+    />
   </div>
 </template>
 
 <script setup>
 import { useMoviesStore } from "../stores/moviesStore";
+import MoviesList from "../components/MoviesList.vue";
 const moviesStore = useMoviesStore();
+console.log(moviesStore.favoriteMovies);
 </script>
 
 <style>

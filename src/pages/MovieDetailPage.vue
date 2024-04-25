@@ -1,7 +1,5 @@
 <template>
-  <div v-if="movieStore.isLoader" class="loader">
-    <span>Идет загрузка...</span>
-  </div>
+  <Loader v-if="moviesStore.isloader" />
   <div class="movie-detail" v-else>
     <router-link to="/" class="back"
       ><img class="back-image" src="/back.png" />назад</router-link
@@ -17,12 +15,15 @@
 import { onMounted } from "vue";
 import { useMovieStore } from "../stores/movieStore";
 import { useRoute } from "vue-router";
+import Loader from "../components/Loader.vue";
+import { useMoviesStore } from "../stores/moviesStore";
 
 const movieStore = useMovieStore();
+const moviesStore = useMoviesStore();
 const route = useRoute();
 
-onMounted(() => {
-  movieStore.fetchMovie(route.params.id);
+onMounted(async () => {
+  await movieStore.fetchMovie(route.params.id);
 });
 </script>
 
